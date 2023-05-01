@@ -1,27 +1,55 @@
+function game() {
+    let winner, gameWinner;
+    let player = 0, comp = 0;
+    
+    for (let i = 0; i < 5; i++) {
+        winner = (playRound(getPlayerChoice(), getComputerChoice()));
+        console.log(winner);
+
+        if (winner.includes("win")) {
+            player += 1;
+        } else if (winner.includes("lose")) {
+            comp += 1;
+        }
+    }
+
+    if (player > comp) {
+        gameWinner = "Player wins!";
+    } else if (comp > player) {
+        gameWinner = "Computer wins!";
+    } else {
+        gameWinner = "Tie game!";
+    }
+
+    console.log(player);
+    console.log(comp);
+    return gameWinner;
+}
+
 function playRound(playerSelection, computerSelection) {
-    let player = playerSelection.toLowerCase();
+    const playerChoice = playerSelection.toLowerCase();
     let result;
 
-    if (player == computerSelection) {
-        result = "Tie! Both used " + player;
+    if (playerChoice == computerSelection) {
+        result = "Tie! Both used " + playerChoice;
         return result;
     }
 
     switch(computerSelection) {
         case "rock":
-            (player == "paper") ? result = "You Win! Paper beats rock" : result = "You lose! Rock beats scissors";
+            (playerChoice == "paper") ? result = "You win! Paper beats rock" : result = "You lose! Rock beats scissors";
             break;
         case "paper":
-            (player == "scissors") ? result = "You Win! Scissors beats paper" : result = "You lose! Paper beats rock";
+            (playerChoice == "scissors") ? result = "You win! Scissors beats paper" : result = "You lose! Paper beats rock";
             break;
         case "scissors":
-            (player == "rock") ? result = "You Win! Rock beats scissors" : result = "You lose! Scissors beats paper";
+            (playerChoice == "rock") ? result = "You win! Rock beats scissors" : result = "You lose! Scissors beats paper";
     }
 
     return result;
-  }
+}
 
-  function getComputerChoice() {
+function getComputerChoice() {
     let cpu = Math.floor(Math.random() * 3);
     let choice;
     
@@ -37,8 +65,17 @@ function playRound(playerSelection, computerSelection) {
     }
 
     return choice;
-  }
-   
-  const playerSelection = "rock";
-  const computerSelection = getComputerChoice();
-  console.log(playRound(playerSelection, computerSelection));
+}
+
+function getPlayerChoice() {
+    let pchoice;
+
+    do {
+        pchoice = prompt("Rock, paper, or scissors?").toLowerCase();
+    }
+    while (pchoice != "rock" && pchoice != "paper" && pchoice != "scissors");
+
+    return pchoice;
+}
+
+console.log(game());
