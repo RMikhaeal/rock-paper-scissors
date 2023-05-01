@@ -1,5 +1,24 @@
 function playRound(playerSelection, computerSelection) {
-    let player = playerSelection.toLower();
+    let player = playerSelection.toLowerCase();
+    let result;
+
+    if (player == computerSelection) {
+        result = "Tie! Both used " + player;
+        return result;
+    }
+
+    switch(computerSelection) {
+        case "rock":
+            (player == "paper") ? result = "You Win! Paper beats rock" : result = "You lose! Rock beats scissors";
+            break;
+        case "paper":
+            (player == "scissors") ? result = "You Win! Scissors beats paper" : result = "You lose! Paper beats rock";
+            break;
+        case "scissors":
+            (player == "rock") ? result = "You Win! Rock beats scissors" : result = "You lose! Scissors beats paper";
+    }
+
+    return result;
   }
 
   function getComputerChoice() {
